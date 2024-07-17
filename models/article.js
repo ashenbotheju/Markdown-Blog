@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')    //import mongoose
 const marked = required('marked')
 const slugify = required('slugify')
+const createDomPurify = require('dompurify')
+const { JSDOM } = require('jsdom')
+const dompurify = createDomPurify(new JSDOM().windows)
 
 const articleSchema = new mongoose.Schema ({
     title: {
@@ -22,6 +25,10 @@ const articleSchema = new mongoose.Schema ({
         type: String,
         required: true,
         unique:true 
+    },
+    sanitizedHtml: {
+        type: String,
+        required: true
     }
 })
 
@@ -30,6 +37,9 @@ articleSchema.pre('validate', function(next) {
         this.slug = slugify(this.title, {
             lover: true, strict: true
         })
+    }
+    if(this.markdown) {
+        this.sanitizedHtml = dompurify.sanitize(marked(this.markdown))
     }
     next() 
 })

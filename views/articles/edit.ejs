@@ -8,9 +8,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">New Article</h1>
+        <h1 class="mb-4">Edit Article</h1>
 
-        <form action="/article" method="POST">
+        <form action="/articles/<%= article.id %>?_method=put" method="POST">
             <%- include('form_field') %>
         </form>
         

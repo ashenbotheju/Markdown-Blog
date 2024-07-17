@@ -20,8 +20,9 @@
                    <div class="card-text mb-2"><%= article.description %></div>
                    <div class="pb-2">
                     <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
-                    <button type="button" class="btn btn-info">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <form action="/articles/<%= article.id %>?_method=DELETE" method="post" class="d-inline">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
                 </div>
                 </div>
             </div>
